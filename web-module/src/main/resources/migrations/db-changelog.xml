@@ -58,7 +58,7 @@
     <changeSet id="2.1" author="s-karpovich@tut.by">
         <insert tableName="user_account">
             <column name="username" value="admin"/>
-            <column name="changed_at" valueDate="2019-08-21"/>
+            <column name="changed_at" valueDate="2019-08-21 19:20:11"/>
             <column name="password" value="$2a$12$ZaeFEfSD3f2r.ixsWyyUeOMLRahSbD7rqZjkvKyQ5dgA4m/FnPpra"/>
             <column name="first_name" value="Admin"/>
             <column name="last_name" value="Adminson"/>
@@ -68,12 +68,24 @@
     </changeSet>
 
     <changeSet id="2.2" author="s-karpovich@tut.by">
+    <insert tableName="user_account">
+        <column name="username" value="user"/>
+        <column name="changed_at" valueDate="2019-08-21 20:50:25"/>
+        <column name="password" value="$2a$12$uwkh.qzasIKHkSnTWGhRw.DAbqQxy.IgkTkygRIDuNpbh3CNU7JUu"/>
+        <column name="first_name" value="User"/>
+        <column name="last_name" value="Userson"/>
+        <column name="role_id" valueNumeric="2"/>
+        <column name="status" value="ACTIVE"/>
+    </insert>
+</changeSet>
+
+    <changeSet id="2.3" author="s-karpovich@tut.by">
         <insert tableName="user_account">
-            <column name="username" value="user"/>
-            <column name="changed_at" valueDate="2019-08-21"/>
-            <column name="password" value="$2a$12$uwkh.qzasIKHkSnTWGhRw.DAbqQxy.IgkTkygRIDuNpbh3CNU7JUu"/>
-            <column name="first_name" value="User"/>
-            <column name="last_name" value="Userson"/>
+            <column name="username" value="zuser"/>
+            <column name="changed_at" valueDate="2019-08-21 22:50:30"/>
+            <column name="password" value="$2a$12$j2vGF0oxA2huK7h4OviGhejROB62m8j4vm6Z4RkzpAko8t.zIDhCC"/>
+            <column name="first_name" value="ZUser"/>
+            <column name="last_name" value="ZUserson"/>
             <column name="role_id" valueNumeric="2"/>
             <column name="status" value="ACTIVE"/>
         </insert>

@@ -7,9 +7,13 @@ import com.highend.cms.service.enums.Status;
 import com.highend.cms.service.model.UserAccountDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import static com.highend.cms.service.constant.DateTimeConstant.DATE_PATTERN;
 
 @Component
 public class UserAccountConverterImpl implements UserAccountConverter {
+
 
     private final RoleConverter roleConverter;
     private final PasswordEncoder serviceEncoder;
@@ -23,7 +27,8 @@ public class UserAccountConverterImpl implements UserAccountConverter {
     public UserAccountDTO toDTO(UserAccount userAccount) {
         UserAccountDTO userAccountDTO = new UserAccountDTO();
         userAccountDTO.setId(userAccount.getId());
-        userAccountDTO.setChangedAt(userAccount.getChangedAt());
+        userAccountDTO.setChangedAt(userAccount.getChangedAt().
+                format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
         userAccountDTO.setUsername(userAccount.getUsername());
         userAccountDTO.setPassword(userAccount.getPassword());
         userAccountDTO.setFirstName(userAccount.getFirstName());
@@ -37,7 +42,8 @@ public class UserAccountConverterImpl implements UserAccountConverter {
     public UserAccount fromDTO(UserAccountDTO userAccountDTO) {
         UserAccount userAccount = new UserAccount();
         userAccount.setId(userAccountDTO.getId());
-        userAccount.setChangedAt(userAccountDTO.getChangedAt());
+        userAccount.setChangedAt(LocalDateTime.parse(userAccountDTO.getChangedAt(),
+                DateTimeFormatter.ofPattern(DATE_PATTERN)));
         userAccount.setUsername(userAccountDTO.getUsername());
         userAccount.setPassword(serviceEncoder.encode(userAccountDTO.getPassword()));
         userAccount.setFirstName(userAccountDTO.getFirstName());

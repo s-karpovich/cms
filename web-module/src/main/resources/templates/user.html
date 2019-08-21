@@ -9,7 +9,6 @@
     <div th:replace="include/header :: header"></div>
     <h3>List</h3>
     <table class="table table-hover">
-        <form id="users-delete-form" method="post" action="/users/delete"></form>
         <thead class="thead-light">
         <tr>
             <th scope="col">Created At</th>
@@ -29,16 +28,30 @@
                 <td th:text="${userAccount.username}">...</td>
                 <td th:text="${userAccount.roleDTO.name}">...</td>
                 <td th:text="${userAccount.status}">...</td>
-                <td><a class="btn btn-outline-success" th:href="@{'/user/' + ${userAccount.id}}" role="button">View</a></td>
+                <td><a class="btn btn-outline-success" th:href="@{'/user/' + ${userAccount.id}}" role="button">View</a>
+                </td>
 
                 <th:block th:if="${currentUser.id ==1}">
-                    <td><a class="btn btn-outline-success" th:href="@{'/user/' + ${userAccount.id} + '/edit/'}" role="button">Edit</a>
+                    <td><a class="btn btn-outline-success" th:href="@{'/user/' + ${userAccount.id} + '/edit/'}"
+                           role="button">Edit</a>
                     </td>
                 </th:block>
             </tr>
         </th:block>
+        </br>
         </tbody>
     </table>
+    <nav aria-label="...">
+        <th:block th:if="${pages>1}">
+            <ul class="pagination pagination">
+                <th:block th:each="i:${#numbers.sequence(1,pages)}">
+                    <a class="page-link" th:href="@{/user?page={page}(page=${i})}"><span th:text="${i}">...</span></a>
+                </th:block>
+            </ul>
+        </th:block>
+        </ul>
+    </nav>
+
 </div>
 </br></br>
 <div th:replace="include/footer :: footer"></div>

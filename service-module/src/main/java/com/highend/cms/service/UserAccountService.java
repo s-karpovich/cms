@@ -1,8 +1,7 @@
 package com.highend.cms.service;
 
+import com.highend.cms.service.model.PageDTO;
 import com.highend.cms.service.model.UserAccountDTO;
-
-import java.util.List;
 
 public interface UserAccountService {
 
@@ -10,9 +9,9 @@ public interface UserAccountService {
 
     void update(UserAccountDTO userAccountDTO);
 
-    List<UserAccountDTO> getUsers();
-
     UserAccountDTO getByUsername(String username);
 
     UserAccountDTO getUserById(Long id);
+
+    PageDTO<UserAccountDTO> getUserAccounts(int page);
 }

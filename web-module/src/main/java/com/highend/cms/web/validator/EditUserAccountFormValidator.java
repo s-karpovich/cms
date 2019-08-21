@@ -5,8 +5,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import static com.highend.cms.web.constant.ValidationMessages.*;
-
+import static com.highend.cms.web.constant.ValidationMessages.LATIN_PATTERN;
+import static com.highend.cms.web.constant.ValidationMessages.LATIN_PATTERN_INVALID;
+import static com.highend.cms.web.constant.ValidationMessages.LOGIN_MAX_LENGTH;
+import static com.highend.cms.web.constant.ValidationMessages.LOGIN_MIN_LENGTH;
+import static com.highend.cms.web.constant.ValidationMessages.NAME_MAX_LENGTH;
+import static com.highend.cms.web.constant.ValidationMessages.NAME_MIN_LENGTH;
+import static com.highend.cms.web.constant.ValidationMessages.PASSWORD_PATTERN;
+import static com.highend.cms.web.constant.ValidationMessages.PASSWORD_PATTERN_INVALID;
+import static com.highend.cms.web.constant.ValidationMessages.USER_LOGIN_LENGTH_INVALID;
+import static com.highend.cms.web.constant.ValidationMessages.USER_NAME_LENGTH_INVALID;
+import static com.highend.cms.web.constant.ValidationMessages.USER_ROLE_BLANK;
 
 @Component
 public class EditUserAccountFormValidator implements Validator {

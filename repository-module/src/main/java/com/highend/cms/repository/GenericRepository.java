@@ -11,4 +11,10 @@ public interface GenericRepository<I, T> {
     T getById(I id);
 
     List<T> getAll();
+
+    List<T> getPage(int page);
+
+    int getCountOfEntities();
+
+    int getCountOfPages();
 }

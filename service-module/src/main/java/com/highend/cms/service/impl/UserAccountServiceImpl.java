@@ -5,20 +5,20 @@ import com.highend.cms.repository.model.UserAccount;
 import com.highend.cms.service.UserAccountService;
 import com.highend.cms.service.converter.UserAccountConverter;
 import com.highend.cms.service.enums.Status;
+import com.highend.cms.service.model.PageDTO;
 import com.highend.cms.service.model.UserAccountDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
+import static com.highend.cms.service.constant.DateTimeConstant.DATE_PATTERN;
+
 
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserAccountServiceImpl.class);
     private final UserAccountConverter userAccountConverter;
     private final UserAccountRepository userAccountRepository;
 
@@ -33,7 +33,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Transactional
     public void create(UserAccountDTO userAccountDTO) {
         userAccountDTO.setStatus(Status.ACTIVE);
-        userAccountDTO.setChangedAt(LocalDateTime.now());
+        userAccountDTO.setChangedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
         UserAccount userAccount = userAccountConverter.fromDTO(userAccountDTO);
         userAccountRepository.persist(userAccount);
     }
@@ -47,16 +47,12 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     @Transactional
-    public List<UserAccountDTO> getUsers() {
-        List<UserAccount> userList = userAccountRepository.getAll();
-//        List<UserAccountDTO> userAccountDTOList = new ArrayList<>();
-//        for (UserAccount userAccount : userList) {
-//            userAccountDTOList.add(userAccountConverter.toDTO(userAccount));
-//        }
-       // return userAccountDTOList;
-        return userList.stream()
-                .map(userAccountConverter::toDTO)
-                .collect(Collectors.toList());
+    public PageDTO<UserAccountDTO> getUserAccounts(int page) {
+        PageDTO<UserAccountDTO> userAccounts = new PageDTO<>();
+        List<UserAccountDTO> usersDTO = getPageOfUsers(page);
+        userAccounts.setList(usersDTO);
+        userAccounts.setCountOfPages(userAccountRepository.getCountOfPages());
+        return userAccounts;
     }
 
     @Override
@@ -73,6 +69,13 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Transactional
     public UserAccountDTO getUserById(Long id) {
         return userAccountConverter.toDTO(userAccountRepository.getById(id));
+    }
+
+    private List<UserAccountDTO> getPageOfUsers(int page) {
+        return userAccountRepository.getPage(page)
+                .stream()
+                .map(userAccountConverter::toDTO)
+                .collect(Collectors.toList());
     }
 }
 

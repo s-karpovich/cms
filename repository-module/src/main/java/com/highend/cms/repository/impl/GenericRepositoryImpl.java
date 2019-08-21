@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
-
+    protected static final int BATCH_SIZE = 2;
     protected Class<T> entityClass;
 
     @PersistenceContext
@@ -42,6 +42,33 @@ public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
         String query = "from " + entityClass.getName() + " c";
         Query q = entityManager.createQuery(query);
         return q.getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<T> getPage(int page) {
+        String query = "from " + entityClass.getName() + " c";
+        Query q = entityManager.createQuery(query)
+                .setFirstResult(getOffset(page))
+                .setMaxResults(BATCH_SIZE);
+        return q.getResultList();
+    }
+
+    @Override
+    public int getCountOfEntities() {
+        String query = "SELECT COUNT(*) FROM " + entityClass.getName() + " c";
+        Query q = entityManager.createQuery(query);
+        return ((Number) q.getSingleResult()).intValue();
+    }
+
+    @Override
+    public int getCountOfPages() {
+        int count = getCountOfEntities();
+        return (int) Math.ceil(count / (double) BATCH_SIZE);
+    }
+
+    private int getOffset(int page) {
+        return -BATCH_SIZE + page * BATCH_SIZE;
     }
 }
 

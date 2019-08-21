@@ -8,35 +8,41 @@
     <div th:replace="include/header :: header"></div>
     <h3>New</h3>
 
-    <form class="form-horizontal" action="#" th:action="@{/user/new}" th:object="${userAccountDTO}" method="post">
+    <form class="form-horizontal" th:action="@{/user/new}" th:object="${userAccountDTO}" method="post">
 
         <div class="form-group">
             <div class="col-md-4">
                 <label for="username">Username</label>
                 <input th:name="username" type="text" class="form-control mb-4" id="username"
-                       placeholder="Username" />
-                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style = "color: red">Username Error</p>
+                       placeholder="Username"/>
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color: red">Username
+                    Error</p>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4"><label for="password">Password</label>
                 <input th:name="password" type="password" class="form-control mb-4" id="password"
-                       placeholder="Password" />
-            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style = "color: red">Password Error</p>
-        </div></div>
+                       placeholder="Password"/>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red">Password
+                    Error</p>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-4">
                 <input th:name="firstName" type="text" class="form-control mb-4" id="firstName"
-                       placeholder="First Name" />
-            <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style = "color: red">First Name Error</p>
-        </div></div>
+                       placeholder="First Name"/>
+                <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red">First Name
+                    Error</p>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-4">
-                <input th:name="lastName" type="text" class="form-control mb-4" id="lastName" placeholder="Last Name" />
-                <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style = "color: red">Last Name Error</p>
+                <input th:name="lastName" type="text" class="form-control mb-4" id="lastName" placeholder="Last Name"/>
+                <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red">Last Name
+                    Error</p>
             </div>
         </div>
 
@@ -46,10 +52,8 @@
                     <option value="">Select Role</option>
                     <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                 </select>
-                <p th:if="${#fields.hasErrors('roleDTO')}" th:errors="*{roleDTO}" style = "color: red">Role Error</p>
+                <p th:if="${#fields.hasErrors('roleDTO')}" th:errors="*{roleDTO}" style="color: red">Role Error</p>
             </div>
-
-
         </div>
 
         <div class="form-group">
@@ -57,7 +61,7 @@
                 <button type="submit" class="btn btn-outline-success">New User</button>
             </div>
         </div>
-</form>
+    </form>
 </div>
 </br></br>
 <div th:replace="include/footer :: footer"></div>

@@ -1,12 +1,11 @@
 package com.highend.cms.service.model;
 
 import com.highend.cms.service.enums.Status;
-import java.time.LocalDateTime;
 
 public class UserAccountDTO {
 
     private Long id;
-    private LocalDateTime changedAt;
+    private String changedAt;
     private String username;
     private String password;
     private String firstName;
@@ -22,11 +21,11 @@ public class UserAccountDTO {
         this.id = id;
     }
 
-    public LocalDateTime getChangedAt() {
+    public String getChangedAt() {
         return changedAt;
     }
 
-    public void setChangedAt(LocalDateTime changedAt) {
+    public void setChangedAt(String changedAt) {
         this.changedAt = changedAt;
     }
 

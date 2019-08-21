@@ -3,6 +3,7 @@ package com.highend.cms.web.controller;
 import com.highend.cms.service.RoleService;
 import com.highend.cms.service.UserAccountService;
 import com.highend.cms.service.enums.Status;
+import com.highend.cms.service.model.PageDTO;
 import com.highend.cms.service.model.RoleDTO;
 import com.highend.cms.service.model.UserAccountDTO;
 import com.highend.cms.web.validator.EditUserAccountFormValidator;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,15 +41,15 @@ public class UserAccountController {
     }
 
     @GetMapping("/user")
-    public String getUsers(Model model) {
+    public String getUsers(@RequestParam(name = "page", defaultValue = "1") Integer page, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         UserAccountDTO currentUserAccount = userAccountService.getByUsername(username);
-
-        List<UserAccountDTO> userAccountList = userAccountService.getUsers();
-        List<RoleDTO> rolesList = roleService.getRoles();
-        model.addAttribute("userAccounts", userAccountList);
-        model.addAttribute("roles", rolesList);
+        PageDTO<UserAccountDTO> userAccounts = userAccountService.getUserAccounts(page);
+        List<RoleDTO> roles = roleService.getRoles();
+        model.addAttribute("userAccounts", userAccounts.getList());
+        model.addAttribute("pages", userAccounts.getCountOfPages());
+        model.addAttribute("roles", roles);
         model.addAttribute("currentUser", currentUserAccount);
 
         return "user";

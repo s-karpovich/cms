@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="include/header :: header-css"></div>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+
+    <h3>Edit</h3>
+    <form class="form-horizontal" action="#" th:action="@{'/user/' + ${userAccount.id} + '/edit/'}" method="post">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="username">UserName</label>
+                <input th:name="username" class="form-control mb-4" id="username"
+                       th:value="${userAccount.username}" />
+                <p th:if="${#fields.hasErrors('userAccountDTO.username')}" th:errors="*{userAccountDTO.username}" style="color: red">
+                    Username Error</p>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="lastName">First Name</label>
+                <input th:name="firstName" class="form-control mb-4" id="firstName"
+                       th:value="${userAccount.firstName}" />
+                <p th:if="${#fields.hasErrors('userAccountDTO.firstName')}" th:errors="*{userAccountDTO.firstName}" style="color: red">First Name
+                    Error</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="lastName">Surname</label>
+                <input th:name="lastName" class="form-control mb-4" id="lastName"
+                       th:value="${userAccount.lastName}" />
+                <p th:if="${#fields.hasErrors('userAccountDTO.lastName')}" th:errors="*{userAccountDTO.lastName}" style="color: red">
+                    Last Name Error</p></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:field="*{userAccount.roleDTO.id}">
+                    <option value="">Select Role</option>
+                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                </select>
+                <p th:if="${#fields.hasErrors('userAccountDTO.roleDTO')}" th:errors="*{userAccountDTO.roleDTO}" style="color: red">
+                    Role Error</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="password">Password</label>
+                <input th:name="password" type="password" class="form-control mb-4" id="password"
+                       th:placeholder="Password" />
+                <p th:if="${#fields.hasErrors('userAccountDTO.password')}" th:errors="*{userAccountDTO.password}" style="color: red">
+                    Password Error</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-outline-success">Update</button>
+            </div>
+        </div>
+    </form>
+
+    </br></br>
+    <div th:replace="include/footer :: footer"></div>
+</div>
+</body>
+</html>

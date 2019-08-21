@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="include/header :: header-css"></div>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+    <h3>View</h3>
+
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Created At</th>
+            <th scope="col">UserName</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th:block th:if="${currentUserAccount.id ==1}">
+                <th scope="col">Status</th>
+            </th:block>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${userAccount.changedAt}">...</td>
+            <td th:text="${userAccount.username}">...</td>
+            <td th:text="${userAccount.firstName}">...</td>
+            <td th:text="${userAccount.lastName}">...</td>
+            <th:block th:if="${currentUserAccount.id ==1}">
+                <td>
+
+                    <form class="form-inline" action="#" th:action="@{'/user/' + ${userAccount.id}}"
+                          method="post">
+                        <div>
+                            <select class="custom-select mr-sm-1" id="inlineFormCustomSelect" th:field="*{userAccount.status}" required>
+                                <option th:each="status : ${T(com.highend.cms.service.enums.Status).values()}"
+                                        th:value="${status}" th:text="${status}"></option>
+                            </select>
+                            &nbsp;
+                            <button class="btn btn-outline-warning">Change Status</button>
+                        </div>
+                    </form>
+                </td>
+            </th:block>
+        </tr>
+        </tbody>
+    </table>
+    </br></br>
+    <div th:replace="include/footer :: footer"></div>
+</div>
+</body>
+</html>

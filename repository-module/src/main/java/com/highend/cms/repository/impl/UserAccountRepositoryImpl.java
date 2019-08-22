@@ -22,7 +22,7 @@ public class UserAccountRepositoryImpl extends GenericRepositoryImpl<Long, UserA
             return null;
         }
     }
-    
+
     @Override
     @SuppressWarnings("unchecked")
     public List<UserAccount> getPage(int page) {

@@ -74,11 +74,11 @@ public class UserAccountController {
         if (bindingResult.hasErrors()) {
             List<RoleDTO> rolesList = roleService.getRoles();
             modelMap.addAttribute("roles", rolesList);
-            logger.error("User has not been added due to error, (ID): {}", userAccountDTO.getId());
+            logger.info("User has not been added due to errors: {}", bindingResult.getFieldError());
             return "new";
         }
         userAccountService.create(userAccountDTO);
-        logger.info("User has been successfully created (ID): {}", userAccountDTO.getId());
+        logger.info("User has been successfully created (ID): {}", userAccountDTO.getUsername());
         return "redirect:/success";
     }
 
@@ -123,16 +123,16 @@ public class UserAccountController {
     public String editUser(@PathVariable(value = "id") Long id,
                            UserAccountDTO userAccount,
                            @ModelAttribute UserAccountDTO userAccountDTO,
-                           ModelMap model,
+                           ModelMap modelMap,
                            BindingResult bindingResult) {
         userAccountDTO.setId(id);
         editUserAccountFormValidator.validate(userAccountDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             List<RoleDTO> rolesList = roleService.getRoles();
-            model.addAttribute("userAccount", userAccount);
-            model.addAttribute("userAccountDTO", userAccountDTO);
-            model.addAttribute("roles", rolesList);
-            logger.error("User has not been updated due to error, (ID): {}", userAccountDTO.getId());
+            modelMap.addAttribute("userAccount", userAccount);
+            modelMap.addAttribute("userAccountDTO", userAccountDTO);
+            modelMap.addAttribute("roles", rolesList);
+            logger.info("User has not been updated due to error, (ID): {}", userAccount.getId());
 
             return "edit";
         }

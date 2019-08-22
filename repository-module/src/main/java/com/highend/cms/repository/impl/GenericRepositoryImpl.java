@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
-    protected static final int BATCH_SIZE = 3;
+    protected static final int BATCH_SIZE = 2;
     protected Class<T> entityClass;
 
     @PersistenceContext

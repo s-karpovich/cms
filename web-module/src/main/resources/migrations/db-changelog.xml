@@ -71,7 +71,7 @@
     <insert tableName="user_account">
         <column name="username" value="user"/>
         <column name="changed_at" valueDate="2019-08-21 20:50:25"/>
-        <column name="password" value="$2a$12$uwkh.qzasIKHkSnTWGhRw.DAbqQxy.IgkTkygRIDuNpbh3CNU7JUu"/>
+        <column name="password" value="$2a$12$93GlDAypRhuWx4HN7Cn2n.nzlmYSALfiVbX9oFiAN8gdKkvqNQUnW"/>
         <column name="first_name" value="User"/>
         <column name="last_name" value="Userson"/>
         <column name="role_id" valueNumeric="2"/>
@@ -81,11 +81,11 @@
 
     <changeSet id="2.3" author="s-karpovich@tut.by">
         <insert tableName="user_account">
-            <column name="username" value="zuser"/>
+            <column name="username" value="seconduser"/>
             <column name="changed_at" valueDate="2019-08-21 22:50:30"/>
-            <column name="password" value="$2a$12$j2vGF0oxA2huK7h4OviGhejROB62m8j4vm6Z4RkzpAko8t.zIDhCC"/>
-            <column name="first_name" value="ZUser"/>
-            <column name="last_name" value="ZUserson"/>
+            <column name="password" value="$2a$12$rsvZfmBq9UCT9q8HmRobJ.yPTJ3bCTWTp0NBzpd4aO/c2GppLyBRS"/>
+            <column name="first_name" value="SeconduUser"/>
+            <column name="last_name" value="SecondUserson"/>
             <column name="role_id" valueNumeric="2"/>
             <column name="status" value="ACTIVE"/>
         </insert>

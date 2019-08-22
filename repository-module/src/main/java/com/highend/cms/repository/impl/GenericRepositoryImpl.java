@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
-    protected static final int BATCH_SIZE = 2;
+    protected static final int BATCH_SIZE = 3;
     protected Class<T> entityClass;
 
     @PersistenceContext
@@ -67,7 +67,7 @@ public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
         return (int) Math.ceil(count / (double) BATCH_SIZE);
     }
 
-    private int getOffset(int page) {
+    protected int getOffset(int page) {
         return -BATCH_SIZE + page * BATCH_SIZE;
     }
 }

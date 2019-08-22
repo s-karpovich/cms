@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class UserAccountRepositoryImpl extends GenericRepositoryImpl<Long, UserAccount> implements UserAccountRepository {
@@ -21,4 +22,15 @@ public class UserAccountRepositoryImpl extends GenericRepositoryImpl<Long, UserA
             return null;
         }
     }
+    
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<UserAccount> getPage(int page) {
+        String hql = "FROM UserAccount as O ORDER BY changedAt DESC";
+        Query q = entityManager.createQuery(hql)
+                .setFirstResult(getOffset(page))
+                .setMaxResults(BATCH_SIZE);
+        return q.getResultList();
+    }
 }
+

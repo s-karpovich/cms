@@ -36,8 +36,6 @@ public class NewUserAccountFormValidator implements Validator {
     public void validate(Object o, Errors errors) {
         UserAccountDTO user = (UserAccountDTO) o;
 
-
-
         if (user.getUsername().length() < LOGIN_MIN_LENGTH || user.getUsername().length() > NAME_MAX_LENGTH) {
             errors.rejectValue("username", "", USER_NAME_LENGTH_INVALID);
         }  else if (userAccountService.getByUsername(user.getUsername()) != null) {
